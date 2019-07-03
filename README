@@ -1,0 +1,99 @@
+ *----------------------------*
+| Masters Dissertation Project |
+| Larisa Stoltzfus             |
+ *----------------------------*
+
+* OVERVIEW
+
+This code and data forms the basis for my project: "Performance, Portability and Productivity of Room Acoustics Codes."
+The purpose of this project is to investigate different versions of room acoustics benchmarks across different platforms to compare differences in performance, portability and productivity.
+In addition, a new framework was developed around these simple room acoustics codes in order to explore the abstraction, memory layout and optimisation spaces around these benchmarks.
+
+There are three main sections of code for the project:
+- variations on a simple room acoustics benchmark - different versions including the new framework (src)
+- advanced room acoustics benchmarks (adv_src) 
+- localMemory (comparison codes for local memory tests done) 
+
+Other directories are supplementary to these main codes. 
+
+* STRUCTURE
+
+adv_bin:
+This directory is where binary executables of advanced codes (from adv_src/*) are placed.
+Executables are created by running the Makefile in the directory of the code of interest (ie. adv_src/adv_cuda).
+
+
+adv_scripts:
+bash scripts for running advanced codes are found here. Folder only includes scripts for running on different platforms.
+
+
+adv_src:
+Code source for advanced versions of the room acoustics benchmarks. 
+This includes the following versions:
+- cuda benchmark with viscosity* (adv_cuda)
+- cuda benchmark with a leggy stencil* (leggy_cuda)
+- cuda benchmark with viscosity and leggy stencils (both_cuda)
+- opencl benchmark with viscosity (adv_openclcpp)
+- opencl benchmark with a leggy stencil (leggy_openclcpp)
+- opencl benchmark with viscosity and leggy stencils (both_openclcpp)
+
+Benchmarks with * were provided by the NESS group (in particular Craig Webb wrote the viscosity version and Brian Hamilton wrote the leggy stencil version). These benchmarks were then adapted for this project and rewritten in opencl as well. The benchmarks were also combined together to see what effect this would have. 
+These codes are left quite close to the original state they were provided in.
+
+
+bin:
+This directory is where the binary executables of the simple acoustics benchmarks (from src/*) are placed. 
+Executables are created by running the Makefile in the directory of the code of interest (ie. src/cuda)
+
+
+data:
+Data that was used in graphs in this project can be found here
+
+data_analysis:
+R scripts for collecting, aggregating, analysing and graphing data can be found here. 
+They are generally linked to the directory of data that they use and usually have names related to the type of data they produce results for:
+
+- blocks.R -- produce graphs of workgroup/workitem optimisations
+- collateAdvancedData.R -- produce graphs for advanced codes results (ie. adv_src)
+- collectTimingsOriginal.R -- produce graphs for original benchmark versions (ie. src)
+- pluckLocalMem.R -- produce graphs depicting results of local memory runs (data from localMemory but also src/abstract)
+- structCompare.R -- produce graphs showing differences in memory layouts (see src/abstract)
+
+
+include:
+Header files for the different codes can be found in here. Also contains headers for targetDP library written by Alan Gray and Kevin Stratford and some written by NESS (CJW_Cuda.h).
+
+localMemory:
+This directory has two types of the local memory runs: opencl and cuda. These were run in comparison to the abstractCL version (src/abstract -- with #define LOCAL). 
+The cuda version was based heavily on one written already by Craig Webb.
+
+
+scripts:
+bash scripts for running simple room acoustics codes. Includes scripts for running on different platforms as well as some optimisation and other helper scripts. The scripts which run codes call the unit test afterwards on their results. Note: data must exist in the testing/compareData directory to compare to (not included here as the data is too large - stored on the servers run on).
+
+src:
+The main room acoustics benchmarks versions are in this directory.
+These include:
+- abstract -- abstracted framework (abstractCL) implementation. different memory layouts or optimisations can be tested by swapping definitions in the GridData.hpp class (ie. "#define"-ing versions to run)
+- cuda -- cuda version, based heavily on original benchmark written by Craig Webb
+- opencl -- OpenCL version of the simple benchmark
+- opencl_cpp -- OpenCL with C++ bindings version of the simple benchmark (not included in results of project)
+- targetDP -- implementation with targetDP library included (targetDP library written by Alan Gray & Kevin Stratford)
+
+
+testing:
+This directory contains a unit test for  comparing binary values written to file by the simple room acoustics versions. Requires data to be compared to to run.
+testing/compareData also contains timing information about original runs.
+
+
+
+* RUNNING THE CODES 
+
+Simple codes can be run be navigating to the directory of interest and calling the Makefile in the directory. All code directories (src, adv_src, localMem) have Makefiles. 
+All can be called using just 'make,' but for targetDP there are two versions of make: cc and cuda for the C and cuda versions respectively.
+
+The executable will then be placed in the bin (src, localMemory) or adv_bin (adv_src) directories and can be called from there. Data will be output in the data directory.
+
+Alternatively, the scripts in scripts and adv_scripts can be used to run the codes, generally multiple versions, multiple times or both. 
+In the scripts directory, these scripts will also run the unit test after the run is complete.
+

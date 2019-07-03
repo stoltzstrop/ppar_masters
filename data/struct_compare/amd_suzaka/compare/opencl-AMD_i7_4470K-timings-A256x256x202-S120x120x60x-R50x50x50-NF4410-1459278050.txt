@@ -1,0 +1,18 @@
+ 1.1 Name       : AMD Accelerated Parallel Processing
+ 1.2 Vendor     : Advanced Micro Devices, Inc.
+ 1.3 Version    : OpenCL 2.0 AMD-APP (1598.5)
+ 1.4 Profile    : FULL_PROFILE
+ 1.5 Extensions : cl_khr_icd cl_amd_event_callback cl_amd_offline_devices 
+ Hawaii
+
+Program Build: 0.21629095077515
+Kernel1: 7.71451806299999
+Kernel2: 0.01392446700000
+Kernels: 7.87279701232910
+Data Copy To: 0.03536295890808
+Data Copy Between: 0.00000000000000
+Data Copy Back: 0.02127981185913
+Data Copy Total: 0.05664277076721
+Total time: 8.194834 
+NF: 4410
+

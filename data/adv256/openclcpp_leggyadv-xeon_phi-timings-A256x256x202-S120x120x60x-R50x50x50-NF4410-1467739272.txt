@@ -1,0 +1,16 @@
+Intel(R) Many Integrated Core Acceleration Card
+OpenCL C 1.2 
+
+Program Build: 2.16487193107605
+Kernel1: 244.82897252099932
+Kernel2: 1.48204420200000
+Kernels: 247.42122387886047
+Data Copy To: 0.00000000000000
+Data Copy Between: 0.00000000000000
+Data Copy Back: 0.00000000000000
+Data Copy Total: 0.00000000000000
+Total time: 250.280416 
+NF: 4410
+Bandwidth: 3.815286
+GFLOPS: 3.099920
+
